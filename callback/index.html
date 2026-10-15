@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>electrikverse – connecting to TikTok…</title>
+<meta name="robots" content="noindex">
+</head>
+<body style="font-family:system-ui,sans-serif;max-width:560px;margin:4rem auto;padding:0 1rem">
+<h1>Connecting your TikTok account…</h1>
+<p id="msg">Returning you to the electrikverse panel.</p>
+<script>
+(function () {
+  var q = new URLSearchParams(window.location.search);
+  var out = new URLSearchParams();
+  ["code", "state", "error", "error_description", "scopes"].forEach(function (k) {
+    if (q.has(k)) out.set(k, q.get(k));
+  });
+  if (!out.has("code") && !out.has("error")) {
+    document.getElementById("msg").textContent = "No authorization code received. Please start again from the panel.";
+    return;
+  }
+  window.location.replace("http://127.0.0.1:8724/oauth/tiktok/callback?" + out.toString());
+})();
+</script>
+</body>
+</html>
